@@ -51,3 +51,6 @@ vim.o.inccommand = 'split'
 vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
 end)
+
+-- disable virtual_text in diagnostic
+vim.diagnostic.config({ virtual_text = false })

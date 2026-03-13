@@ -15,7 +15,7 @@ return {
         clickable = true,
         sidebar_filetypes = {
             ['neo-tree'] = { event = 'BufWipeout' },
-        },  
+        },
         icons = {
             buffer_index = false,
             buffer_number = false,
@@ -28,7 +28,7 @@ return {
             gitsigns = {
                 added = {enabled = true, icon = '+'},
                 changed = {enabled = true, icon = '~'},
-                deleted = {enabled = true, icon = '-'},
+                -- deleted = {enabled = true, icon = '-'},
             },
             separator = { left = '▎', right = '' },
             modified = { button = '●' },
