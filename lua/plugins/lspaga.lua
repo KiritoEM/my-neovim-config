@@ -13,6 +13,7 @@ return {
                 collapse = "⊟",
                 code_action = "💡",
                 lines = { "┗", "┣", "┃", "━", "┏" },
+                kind = nil, 
             },
             finder = {
                 max_height = 0.5,
