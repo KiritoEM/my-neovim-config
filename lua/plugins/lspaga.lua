@@ -16,8 +16,8 @@ return {
             },
             finder = {
                 max_height = 0.5,
-                left_width = 0.3,
-                right_width = 0.3,
+                left_width = 0.4,
+                right_width = 0.2,
                 default = "def+ref+imp",
                 silent = false,
                 keys = {

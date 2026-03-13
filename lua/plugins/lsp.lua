@@ -40,15 +40,7 @@ return {
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
           end, '[T]oggle Inlay [H]ints')
         end
-
-        if client and client:supports_method('textDocument/formatting', event.buf) then
-          map('<leader>f', function() vim.lsp.buf.format { async = true } end, '[F]ormat buffer')
-          vim.api.nvim_create_autocmd('BufWritePre', {
-            buffer = event.buf,
-            callback = function() vim.lsp.buf.format { async = false } end,
-          })
-        end
-      end,
+      end
     })
 
     ---@type table<string, vim.lsp.Config>
