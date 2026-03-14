@@ -239,9 +239,12 @@ return {
         'User',
         pattern = 'HeirlineTimerUpdate',
         callback = vim.schedule_wrap(function() vim.cmd 'redrawstatus' end),
-      },      {
-        provider = '',
-        hl = { fg = 'blue', bg = 'bg_dim' },
+      },
+      {
+        provider = function()
+          return ' ' .. os.date ' %H:%M' .. ' '
+        end,
+        hl = { fg = 'bg', bg = 'blue', bold = true },
       },
     }
 
