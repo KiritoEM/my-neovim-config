@@ -38,7 +38,10 @@ return {
     local Space = { provider = ' ' }
 
     local ViMode = {
-      init = function(self) self.mode = vim.fn.mode(1) end,
+      init = function(self) 
+        self.mode = vim.fn.mode(1) 
+      end,
+
       static = {
         mode_names = {
           n = 'NORMAL',
@@ -61,13 +64,15 @@ return {
           t = 'green',
         },
       },
-      provider = function(self)
-        return '  %2(' .. (self.mode_names[self.mode] or self.mode) .. '%) '
-      end,
-      hl = function(self)
-        local m = self.mode:sub(1, 1)
-        return { fg = 'bg', bg = self.mode_colors[m] or 'blue', bold = true }
-      end,
+      {
+        provider = function(self)
+          return '  %2(' .. (self.mode_names[self.mode] or self.mode) .. '%) '
+        end,
+        hl = function(self)
+          local m = self.mode:sub(1, 1)
+          return { fg = 'bg', bg = self.mode_colors[m] or 'blue', bold = true }
+        end
+      },
       update = {
         'ModeChanged',
         pattern = '*:*',
@@ -76,11 +81,19 @@ return {
     }
 
     local FileName = {
-      provider = function()
-        local name = vim.api.nvim_buf_get_name(0)
+      init = function(self)
+        self.name = vim.api.nvim_buf_get_name(0)
+      end,
+
+      provider = function(self)
+        name = vim.fn.fnamemodify(self.name, ':.')
         if name == '' then return ' [No Name] ' end
-        local parent_path = vim.fn.fnamemodify(name, ':~:.')
-        return ' ' .. parent_path .. ' '
+
+        if not conditions.width_percent_below(#name, 0.35) then
+            name = vim.fn.pathshorten(name)
+        end
+
+        return name
       end,
       hl = { fg = 'fg', bold = true },
     }
@@ -88,7 +101,7 @@ return {
     local FileBlock = { FileName }
 
     local Ruler = {
-      provider = ' (%l/%L):%c %P ',
+      provider = ' (%l/%L):%c %P',
       hl = { fg = 'cyan' },
     }
 
@@ -100,7 +113,7 @@ return {
         local curr_line = vim.api.nvim_win_get_cursor(0)[1]
         local lines = vim.api.nvim_buf_line_count(0)
         local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
-        return ' '..string.rep(self.sbar[i], 2)..' '
+        return ' '..string.rep(self.sbar[i], 2)
       end,
       hl = { fg = 'blue', bg = 'bg_dim' },
     }
@@ -151,7 +164,7 @@ return {
         self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or self.status_dict.changed ~= 0
       end,
       {
-        provider = function(self) return ' ' .. self.status_dict.head .. ' ' end,
+        provider = function(self) return ' ' .. self.status_dict.head end,
         hl = { fg = 'orange', bold = true },
       },
       {
@@ -180,21 +193,6 @@ return {
       },
     }
 
-    local LSPActive = {
-      condition = conditions.lsp_attached,
-      update = {'LspAttach', 'LspDetach'},
-
-
-      provider = function()
-          local names = {}
-          for _, server in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
-              table.insert(names, server.name)
-          end
-          return " [LSP: " .. table.concat(names, " ") .. "]"
-      end,
-      hl = { fg = "green", bold = true },
-    }
-
     local FileType = {
       init = function(self)
         local name = vim.api.nvim_buf_get_name(0)
@@ -204,7 +202,7 @@ return {
       provider = function(self)
         local ft = string.upper(vim.bo.filetype)
         if ft == '' then return '' end
-        return '  ' .. (self.icon or '') .. ' ' .. ft .. '  '
+        return (self.icon or '') .. ' ' .. ft
       end,
       hl = function(self)
         return { fg = self.icon_color, bold = true }
@@ -214,7 +212,7 @@ return {
     local FileEncoding = {
         provider = function()
             local enc = (vim.bo.fenc ~= '' and vim.bo.fenc) or vim.o.enc
-            return enc ~= 'utf-8' and enc:upper()
+            return enc:upper()
         end
     }
 
@@ -223,17 +221,37 @@ return {
         condition = function()
             return vim.bo.modified
         end,
-        provider = "[+]",
+        provider = '[+]',
         hl = { fg = "green" },
       },
       {
         condition = function()
             return not vim.bo.modifiable or vim.bo.readonly
         end,
-        provider = "",
+        provider = '',
         hl = { fg = "orange" },
       },
     }
+
+    local DateTime = {
+      update = {
+        'BufEnter',
+        'User',
+        pattern = 'HeirlineTimerUpdate',
+        callback = vim.schedule_wrap(function() vim.cmd 'redrawstatus' end),
+      },      {
+        provider = '',
+        hl = { fg = 'blue', bg = 'bg_dim' },
+      },
+    }
+
+    vim.loop.new_timer():start(
+      (60 - os.date('%S')) * 1000, 
+      60000,                      
+      vim.schedule_wrap(function()
+        vim.api.nvim_exec_autocmds('User', { pattern = 'HeirlineTimerUpdate' })
+      end)
+    )
 
     require('heirline').setup {
       statusline = {
@@ -241,16 +259,21 @@ return {
         ViMode,
         Space,
         FileBlock,
+        FileFlags,
         Align,
+        Diagnostics,
+        Space,
         Git,
         Space,
-        Diagnostics,
+        FileType,
+        Space,
+        FileEncoding,
         Space,
         Ruler,
         ScrollBar,
-        FileType,
-        FileFlags,
-        LSPActive,
+        Space,
+        Space,
+        DateTime
       },
     }
 

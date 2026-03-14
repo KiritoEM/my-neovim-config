@@ -26,7 +26,7 @@ return {
                 [vim.diagnostic.severity.WARN]  = { enabled = true },
             },
             gitsigns = {
-                added = {enabled = true, icon = '+'},
+                -- added = {enabled = true, icon = '+'},
                 changed = {enabled = true, icon = '~'},
                 -- deleted = {enabled = true, icon = '-'},
             },
