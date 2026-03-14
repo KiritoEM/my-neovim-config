@@ -16,16 +16,17 @@ return {
     require('nvim-highlight-colors').setup {
       render = 'virtual',
       virtual_symbol = '■',
-      virtual_symbol_prefix = ' ',
-      virtual_symbol_position = 'eow',
+      virtual_symbol_suffix = ' ',
+      virtual_symbol_prefix = '',
+      virtual_symbol_position = 'inline',
       enable_hex            = true,  
       enable_short_hex      = true,  
       enable_rgb            = true,  
       enable_hsl            = true,  
       enable_hsl_without_function = true, 
       enable_var_usage      = true,   
-      enable_named_colors   = true,  
-      enable_tailwind       = true,  
+      enable_named_colors   = false,  
+      enable_tailwind       = false,  
     }
 
     cmp.setup {
@@ -73,8 +74,9 @@ return {
             ellipsis_char    = '...',
             show_labelDetails = true,
           })
+          item = lspkind_format(entry, item)
           
-          local color_item = require("nvim-highlight-colors").format(entry, { kind = item.kind })
+          local color_item = require("nvim-highlight-colors").format(entry, {kind = item.kind})
           if color_item.abbr_hl_group then
             item.kind_hl_group = color_item.abbr_hl_group
             item.kind = color_item.abbr
