@@ -5,6 +5,7 @@ map('n', 'QC', '<cmd>q<cr>', {desc = 'Quit'})
 map('n', 'QA', '<cmd>qa<cr>', {desc = 'Quit all'})
 map('n', 'WQ', '<cmd>wq<cr>', { desc = 'Save and quit' })
 
+
 -- Search
 map('n', '<Esc>', '<cmd>nohlsearch<cr>', { desc = 'Clear search highlights' })
 
