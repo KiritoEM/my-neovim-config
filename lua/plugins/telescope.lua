@@ -13,9 +13,40 @@
     },
     config = function()
       require('telescope').setup {
+        defaults = {
+          vimgrep_arguments = {
+            'rg',
+            '--color=never',
+            '--no-heading',
+            '--with-filename',
+            '--line-number',
+            '--column',
+            '--smart-case',
+            '--hidden',        
+            '--glob', '!**/.git/*',
+          },
+        },
+        scroll_strategy = 'limit',
+        layout_strategy = 'horizontal',
+          layout_config = {
+            horizontal = {
+              width        = 0.8,
+              height       = 0.8,
+              preview_width = 0.4,
+            },
+        },
+        winblend        = 10, 
+        border          = true,
+        borderchars     = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
         extensions = {
           ['ui-select'] = { require('telescope.themes').get_dropdown() },
         },
+        border      = true,            
+        borderchars = {               
+          '─', '│', '─', '│', '╭', '╮', '╯', '╰'
+        },
+        sorting_strategy = 'descending',
+        dynamic_preview_title = true,
       }
 
       pcall(require('telescope').load_extension, 'fzf')

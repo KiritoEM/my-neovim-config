@@ -1,9 +1,9 @@
 local map = vim.keymap.set
 
 -- Remap some keys
-map('n', 'QC', '<cmd>q<cr>', {desc = 'Quit'})
-map('n', 'QA', '<cmd>qa<cr>', {desc = 'Quit all'})
-map('n', 'WQ', '<cmd>wq<cr>', { desc = 'Save and quit' })
+map('n', 'qc', '<cmd>q<cr>', {desc = 'Quit'})
+map('n', 'qa', '<cmd>qa<cr>', {desc = 'Quit all'})
+map('n', 'wq', '<cmd>wq<cr>', { desc = 'Save and quit' })
 
 
 -- Search

@@ -57,3 +57,6 @@ vim.diagnostic.config({ virtual_text = false })
 
 -- Enable termguicolors
 vim.opt.termguicolors = true
+
+-- Only one statusline for all buffers
+vim.o.laststatus = 3
