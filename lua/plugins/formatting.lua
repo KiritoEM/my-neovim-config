@@ -1,22 +1,22 @@
 return {
-  {
-    "nvimtools/none-ls.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvimtools/none-ls-extras.nvim",
-    },                            
-    config = function()
-      local null_ls = require("null-ls")
-      null_ls.setup({
-        sources = {
-          require("none-ls.diagnostics.eslint").with({  
-            diagnostics_format = "[eslint] #{m}\n(#{c})",
-          }),
-          null_ls.builtins.diagnostics.fish,
-        },
-      })
-    end,
-  },
+  -- {
+  --   "nvimtools/none-ls.nvim",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "nvimtools/none-ls-extras.nvim",
+  --   },                            
+  --   config = function()
+  --     local null_ls = require("null-ls")
+  --     null_ls.setup({
+  --       sources = {
+  --         require("none-ls.diagnostics.eslint").with({  
+  --           diagnostics_format = "[eslint] #{m}\n(#{c})",
+  --         }),
+  --         null_ls.builtins.diagnostics.fish,
+  --       },
+  --     })
+  --   end,
+  -- },
   {
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
