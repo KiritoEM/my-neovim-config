@@ -13,41 +13,39 @@
     },
     config = function()
       require('telescope').setup {
-        defaults = {
-          vimgrep_arguments = {
-            'rg',
-            '--color=never',
-            '--no-heading',
-            '--with-filename',
-            '--line-number',
-            '--column',
-            '--smart-case',
-            '--hidden',        
-            '--glob', '!**/.git/*',
-          },
+      defaults = {
+        vimgrep_arguments = {
+          'rg',
+          '--color=never',
+          '--no-heading',
+          '--with-filename',
+          '--line-number',
+          '--column',
+          '--smart-case',
+          '--hidden',
+          '--glob', '!**/.git/*',
         },
         scroll_strategy = 'limit',
-        layout_strategy = 'horizontal',
-          layout_config = {
-            horizontal = {
-              width        = 0.8,
-              height       = 0.8,
-              preview_width = 0.4,
-            },
+        layout_strategy = 'vertical',
+        layout_config = {
+          vertical = {
+            height       = 0.9,
+            preview_height = 0.45,
+            preview_cutoff = 20,
+            prompt_position = 'top',
+            mirror = true,
+          },
         },
-        winblend        = 10, 
-        border          = true,
-        borderchars     = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
-        extensions = {
-          ['ui-select'] = { require('telescope.themes').get_dropdown() },
-        },
-        border      = true,            
-        borderchars = {               
-          '─', '│', '─', '│', '╭', '╮', '╯', '╰'
-        },
-        sorting_strategy = 'descending',
+        winblend     = 10,
+        border       = true,
+        borderchars  = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+        sorting_strategy   = 'ascending',
         dynamic_preview_title = true,
-      }
+      },
+      extensions = {
+        ['ui-select'] = { require('telescope.themes').get_dropdown() },
+      },
+    }
 
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')

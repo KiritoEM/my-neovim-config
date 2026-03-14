@@ -8,9 +8,9 @@ return {
   },
   cmd = "Neogit",
    opts = {
-    kind = 'vsplit',             
+    kind = 'split',             
     popup = {
-      kind = 'vsplit',          
+      kind = 'split',          
     },
     integrations = {
       diffview  = true,           

@@ -98,3 +98,6 @@ map('n', '<leader>o',  '<cmd>Lspsaga outline<CR>', { desc = 'Toggle outline' })
 
 -- Lspsaga — float terminal
 map({ 'n', 't' }, '<A-d>', '<cmd>Lspsaga term_toggle<CR>', { desc = 'Toggle float terminal' })
+
+-- Noice
+map('n', '<leader>nt', '<cmd>Noice telescope<cr>', { desc = 'Noice telescope' })
