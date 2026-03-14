@@ -1,7 +1,12 @@
 local map = vim.keymap.set
 
+-- Remap some keys
+map('n', 'QC', '<cmd>q<cr>', {desc = 'Quit'})
+map('n', 'QA', '<cmd>qa<cr>', {desc = 'Quit all'})
+map('n', 'WQ', '<cmd>wq<cr>', { desc = 'Save and quit' })
+
 -- Search
-map('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Clear search highlights' })
+map('n', '<Esc>', '<cmd>nohlsearch<cr>', { desc = 'Clear search highlights' })
 
 -- Diagnostics
 map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic quickfix list' })
