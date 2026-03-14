@@ -47,6 +47,33 @@ return {
     local servers = {
       ts_ls  = {},
       pyright  = {},
+      tailwindcss = {
+        filetypes = {
+          'html',
+          'css',
+          'scss',
+          'javascript',
+          'javascriptreact',
+          'typescript', 
+          'typescriptreact',
+         },
+         settings = {
+            tailwindCSS = {
+              validate = true,
+              colorDecorators = true,
+            }
+         },
+        lint = {
+          cssConflict              = 'warning', 
+          invalidApply             = 'error', 
+          invalidConfigPath        = 'error',   
+          invalidScreen            = 'error',  
+          invalidTailwindDirective = 'error',  
+          invalidVariant           = 'error',   
+          recommendedVariantOrder  = 'warning', 
+        },
+
+      },
       -- dartls   = {
       --   cmd = { 'dart', 'language-server', '--protocol=lsp' },
       --   filetypes = { 'dart' },
@@ -87,7 +114,9 @@ return {
     }
 
     local ensure_installed = vim.tbl_keys(servers or {})
+
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+
     for name, server in pairs(servers) do
       vim.lsp.config(name, server)
       vim.lsp.enable(name)

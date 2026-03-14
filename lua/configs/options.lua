@@ -54,3 +54,6 @@ end)
 
 -- disable virtual_text in diagnostic
 vim.diagnostic.config({ virtual_text = false })
+
+-- Enable termguicolors
+vim.opt.termguicolors = true

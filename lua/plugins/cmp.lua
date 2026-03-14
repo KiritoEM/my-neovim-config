@@ -5,11 +5,28 @@ return {
     'L3MON4D3/LuaSnip',
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-buffer',
+    'brenoprata10/nvim-highlight-colors',
   },
   config = function()
     local cmp = require('cmp')
     local luasnip = require('luasnip')
     local lspkind = require('lspkind')
+
+    -- Setup nvim-highlight-colors
+    require('nvim-highlight-colors').setup {
+      render = 'virtual',
+      virtual_symbol = '■',
+      virtual_symbol_prefix = ' ',
+      virtual_symbol_position = 'eow',
+      enable_hex            = true,  
+      enable_short_hex      = true,  
+      enable_rgb            = true,  
+      enable_hsl            = true,  
+      enable_hsl_without_function = true, 
+      enable_var_usage      = true,   
+      enable_named_colors   = true,  
+      enable_tailwind       = true,  
+    }
 
     cmp.setup {
       snippet = {
@@ -49,13 +66,23 @@ return {
         { name = 'buffer' },
       }),
       formatting = {
-        format = lspkind.cmp_format({
-          mode             = 'symbol_text',
-          maxwidth         = 50,
-          ellipsis_char    = '...',
-          show_labelDetails = true,
-        }),
-      },
+        format =  function(entry, item)
+          local lspkind_format  = lspkind.cmp_format({
+            mode             = 'symbol_text',
+            maxwidth         = 50,
+            ellipsis_char    = '...',
+            show_labelDetails = true,
+          })
+          
+          local color_item = require("nvim-highlight-colors").format(entry, { kind = item.kind })
+          if color_item.abbr_hl_group then
+            item.kind_hl_group = color_item.abbr_hl_group
+            item.kind = color_item.abbr
+          end
+            
+          return item
+        end
+      }
     }
   end,
 }
