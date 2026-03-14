@@ -86,5 +86,7 @@ return {
         end
       }
     }
+
+    vim.keymap.set({'i', 'c'}, '<C-Space>', cmp.complete, { desc = 'Trigger completion (Same as Vscode Ctrl + Space)'})
   end,
 }
