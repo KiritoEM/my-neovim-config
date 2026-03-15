@@ -52,7 +52,20 @@
 
       local builtin = require 'telescope.builtin'
 
-      vim.keymap.set('n', '<leader>sh', builtin.help_tags,    { desc = '[S]earch [H]elp' })
+      vim.keymap.set('n', '<leader>sf', function()
+        local actions = require("telescope.actions")
+        local action_state = require("telescope.actions.state")
+        require('telescope.builtin').find_files({
+          attach_mappings = function(prompt_bufnr, map)
+            map('i', '<CR>', function()
+              local selection = action_state.get_selected_entry()
+              actions.close(prompt_bufnr)
+              vim.cmd("Neotree reveal " .. selection.path)
+            end)
+            return true
+          end,
+        })
+      end, { desc = '[S]earch [F]iles + Neotree' })    
       vim.keymap.set('n', '<leader>sk', builtin.keymaps,      { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files,   { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin,      { desc = '[S]earch [S]elect Telescope' })

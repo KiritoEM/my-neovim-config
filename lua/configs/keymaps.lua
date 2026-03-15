@@ -1,16 +1,16 @@
 local map = vim.keymap.set
 
 -- Remap some keys
-map('n', 'qc', '<cmd>q<cr>', {desc = 'Quit'})
-map('n', 'qa', '<cmd>qa<cr>', {desc = 'Quit all'})
-map('n', 'wq', '<cmd>wq<cr>', { desc = 'Save and quit' })
-
+map('n', '<C-q>', '<cmd>q<cr>', {desc = 'Quit'})
+map('n', '<C-Q>', '<cmd>qa<cr>', {desc = 'Quit all'})
+map('n', '<C-w>', '<cmd>wq<cr>', { desc = 'Save and quit' })
+map('n', 'u', '<cmd>undo<CR>', { desc = 'Undo change' })
 
 -- Search
 map('n', '<Esc>', '<cmd>nohlsearch<cr>', { desc = 'Clear search highlights' })
 
 -- Diagnostics
-map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic quickfix list' })
+map('n', '<leader>d', vim.diagnostic.setloclist, { desc = 'Open diagnostic quickfix list' })
 
 -- Terminal
 map('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
