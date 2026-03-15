@@ -1,16 +1,39 @@
 return {
   'folke/noice.nvim',
-  event = 'VeryLazy',
+  event = 'UIEnter',
   dependencies = {
     'MunifTanjim/nui.nvim',
     'rcarriga/nvim-notify',
   },
   opts = {
+    views = {
+      mini = {
+        win_options = { winblend = 0 },
+      },
+      cmdline_popup = {
+        win_options = { winblend = 0 },
+      },
+      popupmenu = {
+        win_options = { winblend = 0 },
+      },
+      hover = {                              
+        win_options = { winblend = 0 },
+      },
+      notify = {
+        backend = 'notify',
+        fallback = 'mini',
+        format = 'notify',
+        replace = false,
+        merge = false,
+      },
+   },
     cmdline = {
         enabled = true,
         view = 'cmdline_popup',
     },
     lsp = {
+      hover = { enabled = true },        
+      signature = { enabled = true },
       override = {
         ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
         ['vim.lsp.util.stylize_markdown'] = true,
