@@ -7,14 +7,16 @@ return {
     init = function() vim.g.barbar_auto_setup = false end,
     opts = {
         animation = true,
+        auto_hide = 1,
         insert_at_start = false,
         tabpages = true,
         focus_on_close = 'right',
         highlight_visible = true,
         maximum_length = 32,
         clickable = true,
+        exclude_ft = {'neo-tree'},
         sidebar_filetypes = {
-            ['neo-tree'] = { event = 'BufWipeout' },
+            ['neo-tree'] = { event = 'BufWipeout', align = 'right' },
         },
         icons = {
             buffer_index = false,
@@ -37,5 +39,5 @@ return {
             },
         minimum_padding = 2,
         maximum_padding = 4,
-    }
+    },
 }

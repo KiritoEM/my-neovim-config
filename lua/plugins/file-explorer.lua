@@ -8,13 +8,22 @@ return {
   },
   lazy = false,
   keys = {
-    { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
+    { 
+      '\\', ':Neotree reveal<CR>', 
+      desc = 'NeoTree reveal', 
+      silent = true 
+    },
   },
   ---@module 'neo-tree'
   ---@type neotree.Config
   opts = {
     filesystem = {
-      window = {
+    hide_hidden = false,
+    follow_current_file = {
+        enabled = true,
+        leave_dirs_open = true,
+    },
+    window = {
         mappings = {
           ['\\'] = 'close_window',
         },

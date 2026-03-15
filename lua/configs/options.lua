@@ -63,3 +63,6 @@ vim.o.laststatus = 3
 
 -- Active relative number
 vim.o.relativenumber  = true
+
+-- Hide winbar in tree
+vim.opt_local.winbar = ""
