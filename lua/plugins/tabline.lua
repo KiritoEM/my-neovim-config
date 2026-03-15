@@ -31,7 +31,7 @@ return {
                 -- deleted = {enabled = true, icon = '-'},
             },
             separator = { left = '▎', right = '' },
-            modified = { button = '●' },
+           -- modified = { button = '●' },
             pinned = { button = '󰐃', filename = true },
             filetype = { enabled = true }
             },
