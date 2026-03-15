@@ -1,3 +1,5 @@
+vim.o.omnifunc = nil
+
 -- line numbers
 vim.o.number = true
 

@@ -1,11 +1,14 @@
 local map = vim.keymap.set
 
 -- Remap some keys
-map('n', '<C-q>', '<cmd>q<cr>', { desc = 'Quit' })
-map('n', '<C-M-q>', '<cmd>qa<cr>', { desc = 'Quit all' })
+map('n', 'q', '<cmd>q<cr>', { desc = 'Quit' })
+map('n', '<C-q>', '<cmd>qa<cr>', { desc = 'Quit all' })
 map('n', '<C-s>', '<cmd>w<cr>', { desc = 'Save' })
 map('n', '<C-M-s>', '<cmd>wq<cr>', { desc = 'Save and quit' })
 map('n', '<C-z>', '<cmd>undo<cr>', { desc = 'Undo change' })
+map('n', '<leader>r', '"_dd', { desc = 'Delete line' })
+map('v', '<leader>r', '"_d',  { desc = 'Delete selection' })
+
 
 -- Search
 map('n', '<Esc>', '<cmd>nohlsearch<cr>', { desc = 'Clear search highlights' })

@@ -1,0 +1,147 @@
+-- return {
+--   'hrsh7th/nvim-cmp',
+--   dependencies = {
+--     'onsails/lspkind.nvim',
+--     'L3MON4D3/LuaSnip',
+--     'hrsh7th/cmp-nvim-lsp',
+--     'hrsh7th/cmp-buffer',
+--     'saadparwaiz1/cmp_luasnip', 
+--     'brenoprata10/nvim-highlight-colors',
+--   },
+--   config = function()
+--     local cmp = require('cmp')
+--     local luasnip = require('luasnip')
+--     local lspkind = require('lspkind')
+
+--     require('nvim-highlight-colors').setup {
+--       render = 'virtual',
+--       virtual_symbol = '■',
+--       virtual_symbol_suffix = ' ',
+--       virtual_symbol_prefix = '',
+--       virtual_symbol_position = 'inline',
+--       enable_hex = true,
+--       enable_short_hex = true,
+--       enable_rgb = true,
+--       enable_hsl = true,
+--       enable_hsl_without_function = true,
+--       enable_var_usage = true,
+--       enable_named_colors = false,
+--       enable_tailwind = false,
+--     }
+
+--     vim.o.completeopt = "menuone,noinsert,noselect"
+
+--     cmp.setup {
+--       performance = {
+--         dedup_results = true,  
+--       },
+--       preselect = cmp.PreselectMode.None,
+--       snippet = {
+--         expand = function(args)
+--           luasnip.lsp_expand(args.body)
+--         end,
+--       },
+--      window = {
+--       completion = cmp.config.window.bordered({
+--         winhighlight = 'Normal:Pmenu,FloatBorder:PmenuBorder,CursorLine:PmenuSel,Search:None',
+--         col_offset = -3,
+--         side_padding = 1,
+--       }),
+--       documentation = cmp.config.window.bordered({
+--         winhighlight = 'Normal:CmpDocumentation,FloatBorder:CmpDocumentationBorder,CursorLine:PmenuSel,Search:None',
+--         max_width = 60,
+--         max_height = 15,
+--       }),
+--       },
+--       mapping = cmp.mapping.preset.insert({
+--         ['<C-b>']     = cmp.mapping.scroll_docs(-4),
+--         ['<C-f>']     = cmp.mapping.scroll_docs(4),
+--         -- ['<C-Space>'] = cmp.mapping.complete(),
+--         ['<C-e>']     = cmp.mapping.abort(),
+--         ['<CR>']      = cmp.mapping.confirm({ select = true }),
+--         ['<Tab>'] = cmp.mapping(function(fallback)
+--           if cmp.visible() then
+--             cmp.select_next_item()
+--           elseif luasnip.expand_or_jumpable() then
+--             luasnip.expand_or_jump()
+--           else
+--             fallback()
+--           end
+--         end, { "i", "s" }),
+
+--       ['<S-Tab>'] = cmp.mapping(function(fallback)
+--           if cmp.visible() then
+--             cmp.select_prev_item()
+--           elseif luasnip.jumpable(-1) then
+--             luasnip.jump(-1)
+--           else
+--             fallback()
+--           end
+--         end, { "i", "s" }),
+--       }),
+--       sources = cmp.config.sources({
+--         { name = 'nvim_lsp' },
+--         { name = 'luasnip' },
+--       },
+--         { name = 'buffer' }
+--       ),
+--       formatting = {
+--         format = function(entry, item)
+--           local lspkind_format = lspkind.cmp_format({
+--             mode = 'symbol_text',
+--             maxwidth = {
+--               abbr = 50,
+--               menu = 50,
+--             },
+--             symbol_map = {
+--               Text          = "󰉿",
+--               Method        = "󰆧",
+--               Function      = "󰊕",
+--               Constructor   = "",
+--               Field         = "󰜢",
+--               Variable      = "󰀫",
+--               Class         = "󰠱",
+--               Interface     = "",
+--               Module        = "",
+--               Property      = "󰜢",
+--               Unit          = "󰑭",
+--               Value         = "󰎠",
+--               Enum          = "",
+--               Keyword       = "󰌋",
+--               Snippet       = "",
+--               Color         = "󰏘",
+--               File          = "󰈙",
+--               Reference     = "󰈇",
+--               Folder        = "󰉋",
+--               EnumMember    = "",
+--               Constant      = "󰏿",
+--               Struct        = "󰙅",
+--               Event         = "",
+--               Operator      = "󰆕",
+--               TypeParameter = "",
+--             },
+--             ellipsis_char = '...',
+--             show_labelDetails = true,
+--             before = function(entry, vim_item)
+--               local completion_item = entry:get_completion_item()
+--               vim_item.menu = (completion_item.labelDetails and completion_item.labelDetails.description)
+--                 or completion_item.detail
+--                 or ""
+--               return vim_item
+--             end,
+--           })
+
+--           item = lspkind_format(entry, item)
+
+--           local color_item = require('nvim-highlight-colors').format(entry, { kind = item.kind })
+--           if color_item.abbr_hl_group then
+--             item.kind_hl_group = color_item.abbr_hl_group
+--             item.kind = color_item.abbr
+--           end
+
+--           return item
+--         end,
+--       },
+--     }
+--   end,
+-- }

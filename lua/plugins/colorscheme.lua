@@ -5,7 +5,7 @@ return {
     require('kanagawa').setup {
       transparent    = true,
       terminalColors = true,
-      styles         = { comments = { italic = false } },
+      styles = { comments = { italic = false } },
       colors = {
         theme = {
           all = {
@@ -15,12 +15,12 @@ return {
           }
         }
      },
-      overrides      = function(colors)
+      overrides = function(colors)
         local theme = colors.theme
         return {
-          NormalFloat = { bg = "none" },
-          FloatBorder = { bg = "none" },
-          FloatTitle = { bg = "none" },
+          NormalFloat = { bg = 'none' },
+          FloatBorder = { bg = 'none', fg = theme.ui.shade0 },
+          FloatTitle = { bg = 'none' },
           NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
           LazyNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
           MasonNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
@@ -31,22 +31,19 @@ return {
           TelescopeResultsBorder = { fg = theme.ui.bg_m1, bg = theme.ui.bg_m1 },
           TelescopePreviewNormal = { bg = theme.ui.bg_dim },
           TelescopePreviewBorder = { bg = theme.ui.bg_dim, fg = theme.ui.bg_dim },
-          NoiceCmdlinePopup       = { bg = 'none' },
+          NoiceCmdlinePopup = { bg = 'none' },
           NoiceCmdlinePopupBorder = { bg = 'none', fg = theme.ui.shade0 },
-          NoicePopup              = { bg = 'none' },
-          NoicePopupBorder        = { bg = 'none', fg = theme.ui.shade0 },
-          NoiceMini               = { bg = 'none' },
-          LspFloatWinNormal  = { bg = 'none' },
-          LspFloatWinBorder  = { bg = 'none', fg = theme.ui.shade0 },
+          NoicePopup = { bg = 'none' },
+          NoicePopupBorder = { bg = 'none', fg = theme.ui.shade0 },
+          NoiceMini = { bg = 'none' },
+          LspFloatWinNormal = { bg = 'none' },
+          LspFloatWinBorder = { bg = 'none', fg = theme.ui.shade0 },
           DiagnosticFloatingError = { bg = 'none' },
-          DiagnosticFloatingWarn  = { bg = 'none' },
-          DiagnosticFloatingInfo  = { bg = 'none' },
-          DiagnosticFloatingHint  = { bg = 'none' },
-          Pmenu      = { bg = 'none' },
-          PmenuSel   = { bg = theme.ui.bg_p1 },
-          PmenuSbar  = { bg = 'none' },
-        }
-      end,
+          DiagnosticFloatingWarn = { bg = 'none' },
+          DiagnosticFloatingInfo = { bg = 'none' },
+          DiagnosticFloatingHint = { bg = 'none' },
+          }
+end,
     }
     vim.cmd.colorscheme 'kanagawa'
   end,

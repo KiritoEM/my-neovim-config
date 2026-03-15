@@ -45,52 +45,69 @@ return {
 
     ---@type table<string, vim.lsp.Config>
     local servers = {
-      ts_ls  = {},
-      pyright  = {},
-      tailwindcss = {
+      vtsls = {
         filetypes = {
+          'javascript',
+          'javascriptreact',
+          'typescript',
+          'typescriptreact',
+          'tsx',
+        },
+        settings = {
+          complete_function_calls = true,
+          vtsls = {
+            enableMoveToFileCodeAction = true,
+            autoUseWorkspaceTsdk = true,
+            experimental = {
+              maxInlayHintLength = 30,
+              completion = {
+                enableServerSideFuzzyMatch = true,
+              },
+            },
+          },
+          typescript = {
+            updateImportsOnFileMove = { enabled = 'always' },
+            suggest = {
+              completeFunctionCalls = true,
+            },
+            inlayHints = {
+              enumMemberValues = { enabled = true },
+              functionLikeReturnTypes = { enabled = true },
+              parameterNames = { enabled = 'literals' },
+              parameterTypes = { enabled = true },
+              propertyDeclarationTypes = { enabled = true },
+              variableTypes = { enabled = false },
+            },
+          },
+        },
+      },
+      pyright = {},
+      tailwindcss = {
+        filetypes = { 
           'html',
           'css',
           'scss',
           'javascript',
           'javascriptreact',
-          'typescript', 
+          'typescript',
           'typescriptreact',
-         },
-         settings = {
-            tailwindCSS = {
-              validate = true,
-              colorDecorators = true,
-            }
-         },
-        lint = {
-          cssConflict              = 'warning', 
-          invalidApply             = 'error', 
-          invalidConfigPath        = 'error',   
-          invalidScreen            = 'error',  
-          invalidTailwindDirective = 'error',  
-          invalidVariant           = 'error',   
-          recommendedVariantOrder  = 'warning', 
         },
-
+        settings = {
+          tailwindCSS = {
+            validate = true,
+            colorDecorators = true,
+          }
+        },
+        lint = {
+          cssConflict              = 'warning',
+          invalidApply             = 'error',
+          invalidConfigPath        = 'error',
+          invalidScreen            = 'error',
+          invalidTailwindDirective = 'error',
+          invalidVariant           = 'error',
+          recommendedVariantOrder  = 'warning',
+        },
       },
-      -- dartls   = {
-      --   cmd = { 'dart', 'language-server', '--protocol=lsp' },
-      --   filetypes = { 'dart' },
-      --   init_options = {
-      --     onlyAnalyzeProjectsWithOpenFiles = true,
-      --     suggestFromUnimportedLibraries   = true,
-      --     closingLabels = true,
-      --     outline = true,
-      --     flutterOutline = true,
-      --   },
-      --   settings = {
-      --     dart = {
-      --       completeFunctionCalls = true,
-      --       showTodos = true,
-      --     },
-      --   },
-    -- },
       lua_ls = {
         on_init = function(client)
           if client.workspace_folders then
