@@ -6,6 +6,7 @@ return {
     vim.o.pumblend  = 0
 
     require('kanagawa').setup {
+      compile = false,
       transparent    = true,
       terminalColors = true,
       styles = { comments = { italic = false } },
@@ -64,6 +65,7 @@ return {
           NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
           LazyNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
           MasonNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
+          FloatermBorder = { bg = 'none', fg = theme.ui.shade0 }, 
           }
       end,
     }

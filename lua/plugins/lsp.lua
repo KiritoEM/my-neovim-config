@@ -81,7 +81,25 @@ return {
           },
         },
       },
-      pyright = {},
+      omnisharp = {
+        handlers = {
+          ["textDocument/definition"] = function(...)
+            return require("omnisharp_extended").handler(...)
+          end,
+        },
+        enable_roslyn_analyzers = true,
+        organize_imports_on_format = true,
+        enable_import_completion = true,
+      },
+     pyright = {
+        settings = {
+          python = {
+            analysis = {
+              typeCheckingMode = 'standard',
+            },
+          },
+        },
+      },
       tailwindcss = {
         filetypes = { 
           'html',
@@ -132,9 +150,12 @@ return {
 
     local ensure_installed = vim.tbl_keys(servers or {})
 
+   local capabilities = require('blink.cmp').get_lsp_capabilities()
+
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
     for name, server in pairs(servers) do
+      server.capabilities = capabilities
       vim.lsp.config(name, server)
       vim.lsp.enable(name)
     end

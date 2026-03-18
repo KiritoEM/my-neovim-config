@@ -35,7 +35,7 @@ return {
     }
 
     local Align = { provider = '%=' }
-    local Space = { provider = ' ' }
+    local Space = { provider = '  ' }
 
     local ViMode = {
       init = function(self) 

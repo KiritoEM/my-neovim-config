@@ -68,3 +68,11 @@ vim.o.relativenumber  = true
 
 -- Hide winbar in tree
 vim.opt_local.winbar = ""
+
+-- LSP Server for Python
+vim.g.lazyvim_python_lsp = "pyright"
+vim.g.lazyvim_python_ruff = "ruff"
+
+-- LSP Server for PHP
+vim.g.lazyvim_php_lsp = "intelephense"
+

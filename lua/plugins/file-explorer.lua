@@ -18,16 +18,18 @@ return {
   ---@type neotree.Config
   opts = {
     filesystem = {
-    hide_hidden = false,
-    follow_current_file = {
-        enabled = true,
-        leave_dirs_open = true,
-    },
-    window = {
-        mappings = {
-          ['\\'] = 'close_window',
+      visible = true,
+      hide_gitignored  = false,
+      hide_dotfiles  = false,
+      follow_current_file = {
+          enabled = true,
+          leave_dirs_open = true,
+      },
+      window = {
+          mappings = {
+            ['\\'] = 'close_window',
+          },
         },
       },
-    },
   }
 }

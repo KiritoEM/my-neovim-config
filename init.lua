@@ -1,3 +1,6 @@
+local site_path = vim.fn.stdpath('data'):gsub('\\', '/') .. '/site'
+vim.opt.rtp:prepend(site_path)
+
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true

@@ -21,7 +21,8 @@ return {
       ['<Tab>']   = { 'select_next', 'snippet_forward',   'fallback' },
       ['<S-Tab>'] = { 'select_prev', 'snippet_backward',  'fallback' },
       ['<CR>']    = { 'accept',  'fallback' },
-      ['<C-e>']   = { 'hide',    'fallback' },
+      ['<Esc>']   = { 'hide',    'fallback' },
+      ['<c-e>']   = { 'show',    'fallback' },
     },
 
     sources  = { default = { 'lsp', 'path', 'snippets', 'buffer' } },
@@ -44,8 +45,9 @@ return {
       enable_hsl_without_function = true,
       enable_var_usage          = true,
       enable_named_colors       = false,
-      enable_tailwind           = false,
+      enable_tailwind           = true,
     }
-    require('blink.cmp').setup(opts)
+
+    require('blink.cmp').setup({ sources = { default = {'lsp','path','snippets','buffer'} } })
   end,
 }

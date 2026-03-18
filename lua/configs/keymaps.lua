@@ -7,8 +7,7 @@ map('n', '<C-s>', '<cmd>w<cr>', { desc = 'Save' })
 map('n', '<C-M-s>', '<cmd>wq<cr>', { desc = 'Save and quit' })
 map('n', '<C-z>', '<cmd>undo<cr>', { desc = 'Undo change' })
 map('n', '<leader>r', '"_dd', { desc = 'Delete line' })
-map('v', '<leader>r', '"_d',  { desc = 'Delete selection' })
-
+map('v', '<leader>r', '"_d', { desc = 'Delete selection' })
 
 -- Search
 map('n', '<Esc>', '<cmd>nohlsearch<cr>', { desc = 'Clear search highlights' })
@@ -101,4 +100,3 @@ map({ 'n', 't' }, '<A-d>', '<cmd>Lspsaga term_toggle<CR>', { desc = 'Toggle floa
 
 -- Noice
 map('n', '<leader>nt', '<cmd>Noice telescope<cr>', { desc = 'Noice telescope' })
-
