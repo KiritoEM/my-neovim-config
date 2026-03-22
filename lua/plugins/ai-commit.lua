@@ -12,9 +12,8 @@ return {
           model = "gemini-2.5-flash",
           generate = 3,
           max_length = 72,
-          temperature = 0.7, 
-          max_tokens = 200,
-          thinking_budget = 0,
+          temperature = 0.75, 
+          max_tokens = 225,
         },
       },
     })
