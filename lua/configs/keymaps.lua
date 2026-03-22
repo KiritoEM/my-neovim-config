@@ -8,6 +8,7 @@ map('n', '<C-M-s>', '<cmd>wq<cr>', { desc = 'Save and quit' })
 map('n', '<C-z>', '<cmd>undo<cr>', { desc = 'Undo change' })
 map('n', '<leader>r', '"_dd', { desc = 'Delete line' })
 map('v', '<leader>r', '"_d', { desc = 'Delete selection' })
+map({'n', 'v'}, '<leader>a', '<cmd>AICommit<cr>', {desc = 'Start the commit message generation'})
 
 -- Search
 map('n', '<Esc>', '<cmd>nohlsearch<cr>', { desc = 'Clear search highlights' })
@@ -100,3 +101,5 @@ map({ 'n', 't' }, '<A-d>', '<cmd>Lspsaga term_toggle<CR>', { desc = 'Toggle floa
 
 -- Noice
 map('n', '<leader>nt', '<cmd>Noice telescope<cr>', { desc = 'Noice telescope' })
+
+map('n', 'gd', vim.lsp.buf.definition, { noremap = true, silent = true })

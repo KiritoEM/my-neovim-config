@@ -76,3 +76,5 @@ vim.g.lazyvim_python_ruff = "ruff"
 -- LSP Server for PHP
 vim.g.lazyvim_php_lsp = "intelephense"
 
+
+

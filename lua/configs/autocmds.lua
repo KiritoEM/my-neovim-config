@@ -13,16 +13,12 @@ vim.api.nvim_create_autocmd("FileType", {
   desc = "Prevent neo-tree from appearing in the buffer list",
 })
 
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'cs',
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.py",
   callback = function()
-    vim.treesitter.start()
+    vim.bo.filetype = "python"
+    pcall(vim.treesitter.start)
   end,
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'py',
-  callback = function()
-    vim.treesitter.start()
-  end,
+  group = vim.api.nvim_create_augroup("python-filetype-fix", { clear = true }),
+  desc = "Force filetype of python file",
 })

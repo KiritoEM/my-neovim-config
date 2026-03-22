@@ -33,11 +33,9 @@ return {
     },
     auto_install = true,
     highlight    = { enable = true, additional_vim_regex_highlighting = false },
-    indent       = { enable = true },
-    install_dir = vim.fn.stdpath('data'):gsub('\\', '/') .. '/site',
+    indent       = { enable = true }
   },
   config = function(_, opts)
-    vim.opt.runtimepath:prepend(vim.fn.stdpath('data') .. '/site')
     vim.env.CC = 'gcc'
     vim.env.PATH = 'C:\\msys64\\mingw64\\bin;' .. vim.env.PATH
     require('nvim-treesitter.install').compilers = { 'gcc' }

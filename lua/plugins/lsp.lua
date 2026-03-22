@@ -91,16 +91,21 @@ return {
         organize_imports_on_format = true,
         enable_import_completion = true,
       },
-     pyright = {
-        settings = {
-          python = {
-            analysis = {
-              typeCheckingMode = 'standard',
+       pyright = {
+          settings = {
+            python = {
+              analysis = {
+                typeCheckingMode = 'standard',
+                autoImportCompletions = true, 
+                useLibraryCodeForTypes = true,
+                autoSearchPaths = true,
+                diagnosticMode = 'workspace',
+              },
             },
           },
-        },
-      },
-      tailwindcss = {
+        }, 
+        ruff = {},
+        tailwindcss = {
         filetypes = { 
           'html',
           'css',

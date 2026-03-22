@@ -8,3 +8,5 @@ spell/
 lazy-lock.json
 
 .DS_Store
+
+lua/configs/constants.lua
