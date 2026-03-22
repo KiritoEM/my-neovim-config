@@ -1,16 +1,22 @@
 local constants = require('configs.constants')
 
 return {
-    'vernette/ai-commit.nvim',
-    dependencies = {
-        'nvim-lua/plenary.nvim',
-        'nvim-telescope/telescope.nvim',
-    },
-    config = function()
-        require('ai-commit').setup({
-        	openrouter_api_key = constants.API_KEY,
-		model = 'nvidia/nemotron-3-super-120b-a12b:free',
-		auto_push = false
-	})
-    end
+  "404pilo/aicommits.nvim",
+  config = function()
+    require("aicommits").setup({
+      active_provider = "gemini-api",
+      providers = {
+        ["gemini-api"] = {
+          enabled = true,
+          api_key=constants.API_KEY,
+          model = "gemini-2.5-flash",
+          generate = 3,
+          max_length = 72,
+          temperature = 0.7, 
+          max_tokens = 200,
+          thinking_budget = 0,
+        },
+      },
+    })
+  end,
 }
