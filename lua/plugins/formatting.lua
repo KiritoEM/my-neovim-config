@@ -56,6 +56,7 @@ return {
         yaml = { 'cprettierd', 'prettier', stop_after_first = true },
         cs = {'csharpier'},
         fsharp = { 'fantomas' },
+        dart = { 'dart_format' },
       },
     },
   },

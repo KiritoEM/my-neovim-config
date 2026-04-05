@@ -37,10 +37,13 @@ return {
     local Align = { provider = '%=' }
     local Space = { provider = '  ' }
 
+    local function is_flutter()
+      local decorations = vim.g.flutter_tools_decorations
+      return decorations ~= nil
+    end
+
     local ViMode = {
-      init = function(self) 
-        self.mode = vim.fn.mode(1) 
-      end,
+      init = function(self) self.mode = vim.fn.mode(1) end,
 
       static = {
         mode_names = {
@@ -65,13 +68,11 @@ return {
         },
       },
       {
-        provider = function(self)
-          return '  %2(' .. (self.mode_names[self.mode] or self.mode) .. '%) '
-        end,
+        provider = function(self) return '  %2(' .. (self.mode_names[self.mode] or self.mode) .. '%) ' end,
         hl = function(self)
           local m = self.mode:sub(1, 1)
           return { fg = 'bg', bg = self.mode_colors[m] or 'blue', bold = true }
-        end
+        end,
       },
       update = {
         'ModeChanged',
@@ -81,23 +82,19 @@ return {
     }
 
     local FileName = {
-      init = function(self)
-        self.name = vim.api.nvim_buf_get_name(0)
-      end,
+      init = function(self) self.name = vim.api.nvim_buf_get_name(0) end,
 
       provider = function(self)
         name = vim.fn.fnamemodify(self.name, ':.')
         if name == '' then return ' [No Name] ' end
 
-        if not conditions.width_percent_below(#name, 0.35) then
-            name = vim.fn.pathshorten(name)
-        end
+        if not conditions.width_percent_below(#name, 0.35) then name = vim.fn.pathshorten(name) end
 
         return name
       end,
       hl = { fg = 'fg', bold = true },
     }
-            
+
     local FileBlock = { FileName }
 
     local Ruler = {
@@ -113,7 +110,7 @@ return {
         local curr_line = vim.api.nvim_win_get_cursor(0)[1]
         local lines = vim.api.nvim_buf_line_count(0)
         local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
-        return ' '..string.rep(self.sbar[i], 2)
+        return ' ' .. string.rep(self.sbar[i], 2)
       end,
       hl = { fg = 'blue', bg = 'bg_dim' },
     }
@@ -124,36 +121,28 @@ return {
 
       init = function(self)
         local count = vim.diagnostic.count(0)
-        self.errors   = count[vim.diagnostic.severity.ERROR] or 0
-        self.warnings = count[vim.diagnostic.severity.WARN]  or 0
-        self.hints    = count[vim.diagnostic.severity.HINT]  or 0
-        self.info     = count[vim.diagnostic.severity.INFO]  or 0
+        self.errors = count[vim.diagnostic.severity.ERROR] or 0
+        self.warnings = count[vim.diagnostic.severity.WARN] or 0
+        self.hints = count[vim.diagnostic.severity.HINT] or 0
+        self.info = count[vim.diagnostic.severity.INFO] or 0
       end,
 
       {
-        provider = function(self)
-          return self.errors > 0 and (' ' .. self.errors .. ' ') or ''
-        end,
+        provider = function(self) return self.errors > 0 and (' 󰅚 ' .. self.errors .. ' ') or '' end,
         hl = { fg = 'diag_err' },
       },
       {
-        provider = function(self)
-          return self.warnings > 0 and (' ' .. self.warnings .. ' ') or ''
-        end,
+        provider = function(self) return self.warnings > 0 and (' 󰀪 ' .. self.warnings .. ' ') or '' end,
         hl = { fg = 'diag_warn' },
       },
       {
-        provider = function(self)
-          return self.info > 0 and (' ' .. self.info .. ' ') or ''
-        end,
+        provider = function(self) return self.info > 0 and (' 󰋽 ' .. self.info .. ' ') or '' end,
         hl = { fg = 'diag_info' },
       },
       {
-        provider = function(self)
-          return self.hints > 0 and (' ' .. self.hints .. ' ') or ''
-        end,
+        provider = function(self) return self.hints > 0 and (' 󰌶 ' .. self.hints .. ' ') or '' end,
         hl = { fg = 'diag_hint' },
-          },
+      },
     }
 
     local Git = {
@@ -174,21 +163,21 @@ return {
         {
           provider = function(self)
             local count = self.status_dict.added or 0
-            return count > 0 and ('+' .. count .. ' ') or ''
+            return count > 0 and (' +' .. count .. ' ') or ''
           end,
           hl = { fg = 'git_add' },
         },
         {
           provider = function(self)
             local count = self.status_dict.removed or 0
-            return count > 0 and ('-' .. count .. ' ') or ''
+            return count > 0 and (' -' .. count .. ' ') or ''
           end,
           hl = { fg = 'git_del' },
         },
         {
           provider = function(self)
             local count = self.status_dict.changed or 0
-            return count > 0 and ('~' .. count .. ' ') or ''
+            return count > 0 and (' ~' .. count .. ' ') or ''
           end,
           hl = { fg = 'git_chg' },
         },
@@ -206,32 +195,26 @@ return {
         if ft == '' then return '' end
         return (self.icon or '') .. ' ' .. ft
       end,
-      hl = function(self)
-        return { fg = self.icon_color, bold = true }
-      end,
+      hl = function(self) return { fg = self.icon_color, bold = true } end,
     }
 
     local FileEncoding = {
-        provider = function()
-            local enc = (vim.bo.fenc ~= '' and vim.bo.fenc) or vim.o.enc
-            return enc:upper()
-        end
+      provider = function()
+        local enc = (vim.bo.fenc ~= '' and vim.bo.fenc) or vim.o.enc
+        return enc:upper()
+      end,
     }
 
     local FileFlags = {
       {
-        condition = function()
-            return vim.bo.modified
-        end,
+        condition = function() return vim.bo.modified end,
         provider = '[+]',
-        hl = { fg = "green" },
+        hl = { fg = 'green' },
       },
       {
-        condition = function()
-            return not vim.bo.modifiable or vim.bo.readonly
-        end,
+        condition = function() return not vim.bo.modifiable or vim.bo.readonly end,
         provider = '',
-        hl = { fg = "orange" },
+        hl = { fg = 'orange' },
       },
     }
 
@@ -243,20 +226,36 @@ return {
         callback = vim.schedule_wrap(function() vim.cmd 'redrawstatus' end),
       },
       {
-        provider = function()
-          return ' ' .. os.date ' %H:%M' .. ' '
-        end,
+        provider = function() return ' ' .. os.date ' %H:%M' .. ' ' end,
         hl = { fg = 'bg', bg = 'blue', bold = true },
       },
     }
 
-    vim.loop.new_timer():start(
-      (60 - os.date('%S')) * 1000, 
-      60000,                      
-      vim.schedule_wrap(function()
-        vim.api.nvim_exec_autocmds('User', { pattern = 'HeirlineTimerUpdate' })
-      end)
-    )
+    local FlutterDevice = {
+      condition = function()
+        local d = vim.g.flutter_tools_decorations
+        return d and type(d.device) == 'table' and d.device.name ~= nil
+      end,
+      update = {
+        'BufEnter',
+        'User',
+        pattern = 'FlutterToolsAppStarted',
+        callback = vim.schedule_wrap(function()
+          vim.defer_fn(function() vim.cmd 'redrawstatus' end, 500)
+        end),
+      },
+      {
+        provider = function()
+          local d = vim.g.flutter_tools_decorations
+          if not d or type(d.device) ~= 'table' then return '' end
+          return ' ' .. d.device.name .. ' '
+        end,
+        hl = { fg = 'cyan', bold = true },
+      },
+    }
+    vim.loop
+      .new_timer()
+      :start((60 - os.date '%S') * 1000, 60000, vim.schedule_wrap(function() vim.api.nvim_exec_autocmds('User', { pattern = 'HeirlineTimerUpdate' }) end))
 
     require('heirline').setup {
       statusline = {
@@ -267,8 +266,11 @@ return {
         FileFlags,
         Align,
         Diagnostics,
+        Align,
         Space,
         Git,
+        Space,
+        FlutterDevice,
         Space,
         FileType,
         Space,
@@ -277,8 +279,7 @@ return {
         Ruler,
         ScrollBar,
         Space,
-        Space,
-        DateTime
+        DateTime,
       },
     }
 
@@ -286,27 +287,29 @@ return {
       group = vim.api.nvim_create_augroup('Heirline', { clear = true }),
       callback = function()
         local new_colors = require('kanagawa.colors').setup()
-        utils.on_colorscheme(function()
-          return {
-            bg      = new_colors.theme.ui.bg,
-            bg_dim  = new_colors.theme.ui.bg_dim,
-            fg      = new_colors.theme.ui.fg,
-            blue    = new_colors.palette.crystalBlue,
-            cyan    = new_colors.palette.waveAqua2,
-            green   = new_colors.palette.springGreen,
-            yellow  = new_colors.palette.carpYellow,
-            orange  = new_colors.palette.surimiOrange,
-            red     = new_colors.palette.peachRed,
-            purple  = new_colors.palette.oniViolet,
-            diag_warn  = new_colors.theme.diag.warning,
-            diag_err   = new_colors.theme.diag.error,
-            diag_hint  = new_colors.theme.diag.hint,
-            diag_info  = new_colors.theme.diag.info,
-            git_add    = new_colors.theme.vcs.added,
-            git_del    = new_colors.theme.vcs.removed,
-            git_chg    = new_colors.theme.vcs.changed,
-          }
-        end)
+        utils.on_colorscheme(
+          function()
+            return {
+              bg = new_colors.theme.ui.bg,
+              bg_dim = new_colors.theme.ui.bg_dim,
+              fg = new_colors.theme.ui.fg,
+              blue = new_colors.palette.crystalBlue,
+              cyan = new_colors.palette.waveAqua2,
+              green = new_colors.palette.springGreen,
+              yellow = new_colors.palette.carpYellow,
+              orange = new_colors.palette.surimiOrange,
+              red = new_colors.palette.peachRed,
+              purple = new_colors.palette.oniViolet,
+              diag_warn = new_colors.theme.diag.warning,
+              diag_err = new_colors.theme.diag.error,
+              diag_hint = new_colors.theme.diag.hint,
+              diag_info = new_colors.theme.diag.info,
+              git_add = new_colors.theme.vcs.added,
+              git_del = new_colors.theme.vcs.removed,
+              git_chg = new_colors.theme.vcs.changed,
+            }
+          end
+        )
       end,
     })
   end,

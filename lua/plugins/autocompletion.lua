@@ -1,7 +1,7 @@
 return {
   'saghen/blink.cmp',
-  event = 'VimEnter',
-  version = '1.*',
+  event    = 'VimEnter',
+  version  = '1.*',
   dependencies = {
     {
       'L3MON4D3/LuaSnip',
@@ -17,40 +17,35 @@ return {
 
   opts = {
     keymap = {
-      preset = 'default',
-      ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
-      ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
-      ['<CR>'] = {
-        function(cmp)
-          if cmp.is_visible() then return cmp.accept() end
-        end,
-        'fallback',
-      },
-      ['<Esc>'] = { 'hide', 'fallback' },
-      ['<c-e>'] = { 'show', 'fallback' },
+      preset    = 'default',
+      ['<Tab>']   = { 'select_next', 'snippet_forward',   'fallback' },
+      ['<S-Tab>'] = { 'select_prev', 'snippet_backward',  'fallback' },
+      ['<CR>']    = { 'accept',  'fallback' },
+      ['<Esc>']   = { 'hide',    'fallback' },
+      ['<c-e>']   = { 'show',    'fallback' },
     },
 
-    sources = { default = { 'lsp', 'path', 'snippets', 'buffer' } },
+    sources  = { default = { 'lsp', 'path', 'snippets', 'buffer' } },
     snippets = { preset = 'luasnip' },
-    fuzzy = { implementation = 'lua' },
+    fuzzy    = { implementation = 'lua' },
     signature = { enabled = true },
   },
 
   config = function(_, opts)
     require('nvim-highlight-colors').setup {
-      render = 'virtual',
-      virtual_symbol = '■',
-      virtual_symbol_suffix = ' ',
-      virtual_symbol_prefix = '',
-      virtual_symbol_position = 'inline',
-      enable_hex = true,
-      enable_short_hex = true,
-      enable_rgb = true,
-      enable_hsl = true,
+      render                    = 'virtual',
+      virtual_symbol            = '■',
+      virtual_symbol_suffix     = ' ',
+      virtual_symbol_prefix     = '',
+      virtual_symbol_position   = 'inline',
+      enable_hex                = true,
+      enable_short_hex          = true,
+      enable_rgb                = true,
+      enable_hsl                = true,
       enable_hsl_without_function = true,
-      enable_var_usage = true,
-      enable_named_colors = false,
-      enable_tailwind = false,
+      enable_var_usage          = true,
+      enable_named_colors       = false,
+      enable_tailwind           = false,
     }
 
     require('blink.cmp').setup(opts)
