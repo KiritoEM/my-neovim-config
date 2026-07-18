@@ -16,6 +16,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local out = vim.fn.system {
     'git',
     'clone',
+
     '--filter=blob:none',
     '--branch=stable',
     lazyrepo,

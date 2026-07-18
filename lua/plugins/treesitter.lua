@@ -1,7 +1,7 @@
 return {
   'nvim-treesitter/nvim-treesitter',
-  lazy   = false,
-  build  = ':TSUpdate',
+  lazy = false,
+  build = ':TSUpdate',
   ---@diagnostic disable-next-line: missing-fields
   opts = {
     ensure_installed = {
@@ -29,11 +29,12 @@ return {
       'jsonc',
       'yaml',
       'php',
-      'c_sharp'
+      'c_sharp',
+      'java',
     },
     auto_install = true,
-    highlight    = { enable = true, additional_vim_regex_highlighting = false },
-    indent       = { enable = true }
+    highlight = { enable = true, additional_vim_regex_highlighting = false },
+    indent = { enable = true },
   },
   config = function(_, opts)
     vim.env.CC = 'gcc'

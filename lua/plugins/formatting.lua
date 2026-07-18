@@ -4,12 +4,12 @@ return {
   --   dependencies = {
   --     'nvim-lua/plenary.nvim',
   --     'nvimtools/none-ls-extras.nvim',
-  --   },                            
+  --   },
   --   config = function()
   --     local null_ls = require('null-ls')
   --     null_ls.setup({
   --       sources = {
-  --         require('none-ls.diagnostics.eslint').with({  
+  --         require('none-ls.diagnostics.eslint').with({
   --           diagnostics_format = '[eslint] #{m}\n(#{c})',
   --         }),
   --         null_ls.builtins.diagnostics.fish,
@@ -24,9 +24,7 @@ return {
     keys = {
       {
         '<leader>f',
-        function()
-          require('conform').format({ async = true, lsp_format = 'never' })
-        end,
+        function() require('conform').format { async = true, lsp_format = 'never' } end,
         mode = '',
         desc = '[F]ormat buffer',
       },
@@ -37,11 +35,11 @@ return {
       formatters = {
         prettierd = {
           command = 'prettierd.cmd',
-        }
+        },
       },
       format_on_save = {
         timeout_ms = 1000,
-        lsp_format = 'never'
+        lsp_format = 'never',
       },
       formatters_by_ft = {
         lua = { 'stylua' },
@@ -53,10 +51,9 @@ return {
         html = { 'prettierd', 'prettier', stop_after_first = true },
         json = { 'prettierd', 'prettier', stop_after_first = true },
         markdown = { 'prettierd', 'prettier', stop_after_first = true },
-        yaml = { 'cprettierd', 'prettier', stop_after_first = true },
-        cs = {'csharpier'},
+        yaml = { 'prettierd', 'prettier', stop_after_first = true },
+        cs = { 'csharpier' },
         fsharp = { 'fantomas' },
-        dart = { 'dart_format' },
       },
     },
   },
